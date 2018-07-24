@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
+import { getApartments } from './api/index.js'
 
 class App extends Component {
+  constructor(props){
+       super(props)
+       this.state = {
+           apartments: []
+       }
+   }
+   componentWillMount() {
+        getApartments()
+        .then(APIapartments => {
+            this.setState({
+                apartments: APIapartments
+            })
+          }
+          )
+    }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+      <Router>
+        <div>
+        <Route path="/apartments" component={ApartmenList} />
+        <Route path="apartment/:id"
+        </div>
+
       </div>
     );
   }
